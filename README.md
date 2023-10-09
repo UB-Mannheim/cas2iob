@@ -1,5 +1,7 @@
 # CAS2IOB
 
+[![PyPI version](https://badge.fury.io/py/cas2iob.svg)](https://badge.fury.io/py/cas2iob)
+
 CAS2IOB is a converter of UIMA CAS XMI files using in the INCEpTION annotation platform into IOB TSV files. In contrast to the internal convertor in INCEpTION, it handles the nested NER tags, NEL tags and components, and saves them into multiple columns of a TSV-file:
 ```
 TOKEN  NE-COARSE   NE-FINE NE-FINE-COMP    NE-NESTED   NEL-WikidataQID

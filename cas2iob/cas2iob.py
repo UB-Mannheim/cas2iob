@@ -117,9 +117,16 @@ def folder(input_folder: Path, output_folder: Path, typesystem_xml: Path = './Ty
 
 @cli.command()
 def load(input_path: Path, output_path: Path, typesystem_xml: Annotated[str, typer.Argument()] = './TypeSystem.xml', metadata: Annotated[bool, typer.Argument()] = True):
-    if Path(input_path).is_file() and Path(output_path).is_file():
-        file(input_path, output_path, typesystem_xml, metadata)
-    elif Path(input_path).is_dir() and Path(output_path).is_dir():
-        folder(input_path, output_path, typesystem_xml, metadata)
-    else:
-        print("ERROR: Specify the paths for files OR the paths for folders.")
+    try:
+        if input_path.is_file():
+            if not output_path.exists():
+                output_path.touch()
+            file(input_path, output_path, typesystem_xml, metadata)
+        elif input_path.is_dir():
+            if not output_path.exists():
+                output_path.mkdir(parents=True)
+            folder(input_path, output_path, typesystem_xml, metadata)
+        else:
+            print("ERROR: Invalid input path.")
+    except Exception as e:
+        print(f"ERROR: {e}")
